@@ -1,18 +1,23 @@
-import { getAuth, signOut } from "firebase/auth";
-import { Link } from "react-router-dom";
-import LightLogo from "../../images/Logo_whiteBg.png";
+import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
-import "../../App.css";
+// import "../../App.css";
 import "./Nav.css";
 
 const Nav = () => {
+	interface MobileHandler {
+		// () => void
+	}
+
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [showNav, setShowNav] = useState(true);
 
 	// Prevent/hide scrolling when the Navigation menu is opened.
 	const mobileOpenHandler = () => {
+		console.log(mobileOpen);
+
 		if (mobileOpen) {
 			document.getElementsByTagName("body")[0].style.overflow = "visible";
 			setMobileOpen(false);
@@ -22,41 +27,26 @@ const Nav = () => {
 		}
 	};
 
-	const auth = getAuth();
-
-	const handleSignOut = () => {
-		signOut(auth)
-			.then(() => {
-				// Sign-out successful.
-				console.log("Sign-out successful", auth);
-				window.location.href = "/login";
-			})
-			.catch((error) => {
-				// An error happened.
-				console.error("Error signing out", error);
-			});
-	};
-
 	const navLinks = [
 		{
 			id: 0,
 			title: "ABOUT",
-			link: "/fetchcoin/#about",
+			link: "#about",
 		},
 		{
 			id: 1,
 			title: "CRYPTO",
-			link: "/fetchcoin/#crypto",
+			link: "#crypto",
 		},
 		{
 			id: 2,
 			title: "MISSION",
-			link: "/fetchcoin/#mission",
+			link: "#mission",
 		},
 		{
 			id: 3,
 			title: "CONTACT",
-			link: "/fetchcoin/#contact",
+			link: "#contact",
 		},
 	];
 
@@ -70,13 +60,13 @@ const Nav = () => {
 				>
 					<div className="logo lg:flex lg:justify-center">
 						<a href="/fetchcoin" className="">
-							<img
-								src={LightLogo}
+							<Image
+								src={`/assets/Logo_whiteBg.png`}
 								className="cursor-pointer"
 								alt="Company Logo"
 								width={150}
 								height={150}
-							></img>
+							/>
 						</a>
 					</div>
 					<div className="nav-links lg:flex lg:justify-center">
@@ -94,45 +84,32 @@ const Nav = () => {
 					</div>
 					{/* Log in & Sign up buttons */}
 					<div className="hidden lg:flex">
-						{!auth.currentUser ? (
-							<Link to="/login">
-								<button className="log-in rounded-full mr-2 text-center w-24 bg-blue-background text-white py-2 px-4 hover:bg-blue-background-hover">
-									Log in
-								</button>
-							</Link>
-						) : null}
-						{!auth.currentUser ? (
-							<Link to="/signup">
-								<button className="sign-up rounded-full text-center w-24 bg-gold-trim text-white py-2 px-4 hover:bg-gold-trim-hover">
-									Sign up
-								</button>
-							</Link>
-						) : null}
-						{auth.currentUser ? (
-							<button
-								onClick={handleSignOut}
-								className="rounded-full text-center w-24 bg-gold-trim text-white py-2 px-4 hover:bg-gold-trim-hover"
-							>
-								Sign Out
+						<Link href="/login">
+							<button className="log-in rounded-full mr-2 text-center w-24 bg-blue-background text-white py-2 px-4 hover:bg-blue-background-hover">
+								Log in
 							</button>
-						) : null}
-						<div>
-						{/* {auth.currentUser.email ? <span>{auth.currentUser.email}</span> : null} */}
-						</div>
+						</Link>
+						<Link href="/signup">
+							<button className="sign-up rounded-full text-center w-24 bg-gold-trim text-white py-2 px-4 hover:bg-gold-trim-hover">
+								Sign up
+							</button>
+						</Link>
+
+						<button className="rounded-full text-center w-24 bg-gold-trim text-white py-2 px-4 hover:bg-gold-trim-hover">
+							Sign Out
+						</button>
 					</div>
 				</div>
 				{/* Mobile view */}
 				<div className="flex items-center px-4 lg:hidden">
-					<img
-						src={LightLogo}
+					<Image
+						src={`/assets/Logo_whiteBg.png`}
 						className="cursor-pointer"
 						alt="Company Logo"
 						width={150}
 						height={150}
-						onClick={() =>
-							(window.location.href = "https://mattwhen.github.io/fetchcoin/")
-						}
-					></img>
+						onClick={() => (window.location.href = "/")}
+					/>
 					<div
 						id="hamburger-menu"
 						className="text-4xl flex align-middle text-gray-500 ml-auto lg:hidden"
@@ -154,7 +131,8 @@ const Nav = () => {
 					{navLinks.map(({ id, title, link }) => {
 						return (
 							<li key={id}>
-								<a href={link} onClick={() => mobileOpenHandler(false)}>
+								{" "}
+								<a href={link} onClick={mobileOpenHandler}>
 									{title}
 								</a>
 							</li>

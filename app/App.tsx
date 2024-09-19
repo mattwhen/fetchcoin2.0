@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
+import Nav from "./components/Nav/Nav";
 
 const App = () => {
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen">
-		
-		</div>
+		<>
+			<Nav />
+		</>
 	);
 };
 
