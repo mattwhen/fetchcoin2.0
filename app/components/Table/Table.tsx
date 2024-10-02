@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
 	numberWithCommas,
@@ -9,12 +10,26 @@ import Loading from '../Loading/Loading';
 import Pagination from '../Pagination/Pagination';
 import './Table.css';
 
-export default function Table({
-	data,
+// Define props here
+interface TableProps {
+	data: number[];
+	loading: boolean;
+	page: number;
+	setPage: number;
+}
+
+
+interface Coin {
+	id: number;
+}
+
+const Table: React.FunctionComponent<TableProps> =
+({
+	data, // Define the type as an Array of objects.
 	loading,
 	page,
 	setPage,
-}) {
+}) => {
 	const numOfCoinsPerPage = 20;
 
 	const tableHeaders = [
@@ -57,7 +72,7 @@ export default function Table({
 				<Pagination
 					data={data}
 					page={page}
-					setPage={setPage}
+					setPage={page}
 					numOfCoinsPerPage={numOfCoinsPerPage}
 					handleClick={(currentPage) => setPage(currentPage)}
 				/>
@@ -84,7 +99,7 @@ export default function Table({
 							)
 							.map((coin, i) => (
 								<>
-									<Link to={`/coin/${coin.id}`}>
+									<Link href={`/coin/${coin.id}`}>
 										<tr
 											key={i}
 											className='h-14 hover-crypto flex items-center lg:hover:cursor-pointer'
@@ -95,11 +110,11 @@ export default function Table({
 											<td>
 												<div className='NAME flex items-center pl-2 w-44 overflow-auto'>
 													<div className='text-left'>
-														<img
+														<Image
 															src={coin.icon}
 															className='w-8 h-8 mr-4'
 															alt='crypto-icon'
-														></img>
+														/>
 													</div>
 													<div className='flex flex-col justify-center'>
 														<span className='text-sm leading-4 text-left font-bold'>
@@ -163,3 +178,5 @@ export default function Table({
 		</>
 	);
 }
+
+export default Table;

@@ -1,9 +1,18 @@
+import React from 'react';
 import { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import "./Pagination.css";
 
-const Pagination = ({ data, page, setPage, numOfCoinsPerPage }) => {
+	interface PaginationProps {
+		data: number[];
+		page: number;
+		setPage: (page: number) => void;
+		numOfCoinsPerPage: number; 
+		handleClick: (currentPage: number) => void;
+	}
+
+const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoinsPerPage }) => {
 	const [currentRange, setCurrentRange] = useState([1, 2, 3]);
 
 	const firstPage = 1;
@@ -120,6 +129,7 @@ const Pagination = ({ data, page, setPage, numOfCoinsPerPage }) => {
 					{page > 3
 						? currentRange.map((num, index) => (
 								<li
+									key={index}
 									// Apply styling based on the current page being selected.
 									onClick={() => setPage(num)}
 									className={
@@ -133,6 +143,7 @@ const Pagination = ({ data, page, setPage, numOfCoinsPerPage }) => {
 						  ))
 						: currentRange.map((num, index) => (
 								<li
+									key={index}
 									// Apply styling based on the current page being selected.
 									onClick={() => setPage(num)}
 									className={

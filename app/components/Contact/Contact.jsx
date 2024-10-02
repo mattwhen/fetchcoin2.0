@@ -1,14 +1,15 @@
 import React from 'react';
-import LocationDot from '../../images/location-dot-solid.svg';
-import Clock from '../../images/clock-regular.svg';
-import Phone from '../../images/phone-solid.svg';
+import Image from 'next/image';
+import LocationPointer from '../../../public/assets/location-dot-solid.svg';
+import Clock from '../../../public/assets/clock-regular.svg';
+import Phone from '../../../public/assets/phone-solid.svg';
 
 const Contact = () => {
 	const fields = [
 		{
 			id: 1,
 			text: '68243 Native St.',
-			icon: LocationDot,
+			icon: LocationPointer,
 		},
 		{
 			id: 2,
@@ -36,7 +37,7 @@ const Contact = () => {
 				{fields.map((item) => {
 					return (
 						<div key={item.id} className='flex space-x-4'>
-							<img src={item.icon} className='w-4' alt='' />
+							<Image src={item.icon} width={16} height={16} alt='contact icon' />
 							<p key={item.id} className='text-lg leading-10'>
 								{item.text}
 							</p>
