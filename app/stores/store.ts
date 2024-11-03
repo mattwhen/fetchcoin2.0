@@ -1,28 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import type { Action, ThunkAction } from "@reduxjs/toolkit";
+import { Action, ThunkAction } from "@reduxjs/toolkit";
+import { apiSlice } from "@/api/apiSlice";
+const axios = require("axios");
 
-const initialState: CounterState = { value: 0 };
-
-interface CounterState {
-	value: number;
-}
+const initialState = { value: 0 };
 
 // Create our Redux store using configureStore(reducer).
 // configureStore() requires that we pass in a reducer argument.
 // Since our application can have different features, and each of those features might have it's own reducer function.
 // When we call configureStore(reducer), we pass in all of the different reducers in an object.
 export const store = configureStore({
-	// Pass in all of our reducers in the reducer object.
 	reducer: {
-		/* 
-    When we pass in an object like {counter: counterReducer}, that says that we want 
-    to have a state.counter section of our Redux state object, 
-    and that we want the counterReducer function to be in charge of deciding if 
-    and how to update the state.counter section whenever an action is dispatched.
-    */
-
+		// Add the generated reducer at a specific top-level slice
+		[apiSlice.reducerPath]:apiSlice.reducer,
 	},
-});
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(apiSlice.middleware),
+})
 
 // Infer the type of `store`
 export type RootState = ReturnType<AppStore["getState"]>;

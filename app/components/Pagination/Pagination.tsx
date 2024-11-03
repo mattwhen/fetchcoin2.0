@@ -5,18 +5,19 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import "./Pagination.css";
 
 	interface PaginationProps {
-		data: number[];
+		data: number;
 		page: number;
 		setPage: (page: number) => void;
 		numOfCoinsPerPage: number; 
-		handleClick: (currentPage: number) => void;
+		handleClick: () => void
 	}
 
-const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoinsPerPage }) => {
+const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoinsPerPage, handleClick }) => {
 	const [currentRange, setCurrentRange] = useState([1, 2, 3]);
 
 	const firstPage = 1;
-	const lastPage = data.length / numOfCoinsPerPage;
+	const lastPage = data;
+	// const lastPage = data / numOfCoinsPerPage;
 
 
 	const handleNextClick = () => {
@@ -73,7 +74,6 @@ const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoins
 		}
 	};
 
-	// TODO: implement logic similar to handlePageSkipAhead but reverse.
 	const handlePageSkipBehind = () => {
 		if (page < firstPage) {
 			return null;

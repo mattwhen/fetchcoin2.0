@@ -19,8 +19,8 @@ const Mission = () => {
 	return (
 		<>
 				<h2 id='mission' className='text-center text-4xl pt-20 pb-10'>Our Mission</h2>
-			<div className='CONTAINER p-4 flex flex-col justify-center gap-10 text-center lg:flex-row lg:gap-1'>
-				<div className='p-5 border-solid border-4 rounded-xl border-sky-700 mx-5 lg:w-96'>
+			<div className='CONTAINER flex flex-col justify-center items-center gap-10 text-center lg:flex-row lg:gap-1'>
+				<div className='p-5 border-solid border-4 rounded-xl border-sky-700 mx-5 md:w-3/4 lg:w-96'>
 					<h3 className='text-2xl pb-5'>Secure Wallet</h3>
 					<div className='flex flex-col justify-center items-center'>
 						<TfiWallet className='text-5xl mb-5' />
@@ -35,7 +35,7 @@ const Mission = () => {
 						</p>
 					</div>
 				</div>
-				<div className='p-5 border-solid border-4 rounded-xl border-sky-700 mx-5 lg:w-96'>
+				<div className='p-5 border-solid border-4 rounded-xl border-sky-700 mx-5 md:w-3/4 lg:w-96'>
 					<div className='flex flex-col justify-center items-center'>
 						<h3 className='text-2xl pb-5'>Price tracking</h3>
 						<AiOutlineStock className='text-5xl mb-5' />
@@ -50,7 +50,7 @@ const Mission = () => {
 						</p>
 					</div>
 				</div>
-				<div className='p-5 border-solid border-4 rounded-xl border-sky-700 mx-5 lg:w-96'>
+				<div className='p-5 border-solid border-4 rounded-xl border-sky-700 mx-5 md:w-3/4 lg:w-96'>
 					<div className='flex flex-col justify-center items-center'>
 						<h3 className='text-2xl pb-5'>Hassle-free transactions</h3>
 						<TfiCreditCard className='text-5xl mb-5'/>
