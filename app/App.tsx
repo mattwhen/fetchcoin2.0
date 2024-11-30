@@ -9,12 +9,13 @@ import Mission from "./components/Mission/Mission";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import PostsList from "./components/CoinList/CoinList";
+import { ApiResponse } from "../api/coinAll/types";
 
 const App = () => {
-	const [data, setData] = useState([]);
+	const [data, setData] = useState<ApiResponse[]>([]);
 	const [filteredData, setFilteredData] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState<number>(1);
 	const [searchBarValue, setSearchBarValue] = useState("");
 
 	const apiKey = process.env.REACT_APP_KEY;
@@ -24,28 +25,27 @@ const App = () => {
 		<>
 			<Nav />
 			<div className="px-3">
-
-			<Intro />
-			<Search
-				value={searchBarValue}
-				setFilteredData={setFilteredData}
-				filteredData={filteredData}
-				searchBarValue={searchBarValue}
-				setSearchBarValue={setSearchBarValue}
-				data={data}
+				<Intro />
+				<Search
+					value={searchBarValue}
+					setFilteredData={setFilteredData}
+					filteredData={filteredData}
+					searchBarValue={searchBarValue}
+					setSearchBarValue={setSearchBarValue}
+					data={data}
 				/>
-			<Table
-				data={data}
-				setData={setData}
-				loading={loading}
-				setLoading={setLoading}
-				page={page}
-				// setPage={setPage}
+				<Table
+					data={data}
+					setData={setData}
+					loading={loading}
+					setLoading={setLoading}
+					page={page}
+					setPage={setPage}
 				/>
-			<Mission />
-			<Contact />
-			<Footer />
-				</div>
+				<Mission />
+				<Contact />
+				<Footer />
+			</div>
 		</>
 	);
 };

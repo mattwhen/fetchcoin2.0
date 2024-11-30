@@ -10,6 +10,12 @@ module.exports = {
             port: '',
             pathname: '/coins/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'static.coinstats.app',
+            port: '',
+            pathname: '/icons/**',
+          },
         ],
     },
 }

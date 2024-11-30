@@ -1,26 +1,31 @@
-import React from 'react';
+import { useGetCoinsQuery } from "@/api/coinAll";
+import React from "react";
 import { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import "./Pagination.css";
 
-	interface PaginationProps {
-		data: number;
-		page: number;
-		setPage: (page: number) => void;
-		numOfCoinsPerPage: number; 
-		handleClick: () => void
-	}
+interface PaginationProps {
+	data: number;
+	page: number;
+	setPage: (page: number) => void;
+}
 
-const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoinsPerPage, handleClick }) => {
+const Pagination: React.FC<PaginationProps> = ({ data, page, setPage }) => {
+	const { data: coin, isError, isLoading } = useGetCoinsQuery({});
 	const [currentRange, setCurrentRange] = useState([1, 2, 3]);
 
-	const firstPage = 1;
-	const lastPage = data;
-	// const lastPage = data / numOfCoinsPerPage;
+	const numOfCoinsPerPage = 20;
 
+	console.log("Page:", page);
+	console.log(currentRange);
+
+	const firstPage = 1;
+	const lastPage = coin.result.length / numOfCoinsPerPage;
 
 	const handleNextClick = () => {
+		console.log("What page is this?", page);
+
 		if (page === lastPage) {
 			return null;
 		}
@@ -36,15 +41,16 @@ const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoins
 		}
 	};
 
-	const handlePreviousClick = () => { 
-		// If the previous page falls outside of the currentRange, do something.
-		// Update the current range values to the last five digits.
-
-		const prevPage = page - 1; // [6, 7, 8, 9, 10] => [1, 2, 3, 4, 5]
+	const handlePreviousClick = () => {
+		// If the previous page falls outside of the currentRange, Update the current range values to the last five digits.
+		const prevPage = page - 1;
 		const isInRange = currentRange.includes(prevPage);
 
 		if (page === firstPage) {
-			return null;
+			return;
+		}
+		if (page < 2) {
+			setCurrentRange([1, 2, 3]);
 		}
 		if (isInRange) {
 			setPage(page - 1);
@@ -61,9 +67,9 @@ const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoins
 
 	const handlePageSkipAhead = () => {
 		if (page > lastPage) {
-			return null;
+			return;
 		}
-		
+
 		if (page + 5 >= lastPage) {
 			setPage(lastPage);
 			setCurrentRange([lastPage - 2, lastPage - 1, lastPage]);
@@ -78,15 +84,12 @@ const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoins
 		if (page < firstPage) {
 			return null;
 		}
-		// Check IF the current page - 5 is less than 1. 
-		// If it is, automatically set the page to 1. If we don't do this, the page jumps to a negative number. 
-		// Otherwise, set the page - 5 and update the page range.
 		if (page - 5 <= firstPage) {
 			setPage(firstPage);
-			setCurrentRange([firstPage, firstPage + 1, firstPage + 2])
+			setCurrentRange([firstPage, firstPage + 1, firstPage + 2]);
 		} else {
 			setPage(page - 5);
-			setCurrentRange(currentRange.map((page) => page - 5))
+			setCurrentRange(currentRange.map((page) => page - 5));
 		}
 	};
 
@@ -124,7 +127,6 @@ const Pagination: React.FC<PaginationProps> = ({ data, page, setPage, numOfCoins
 							...
 						</li>
 					) : null}
-					{/* Not visible until page count is greater than 5 */}
 					{/* TODO: set the current page to be in between the number before and after. e.g. 5, (6), 7 or 8, (9), 10 */}
 					{page > 3
 						? currentRange.map((num, index) => (

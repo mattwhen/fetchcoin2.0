@@ -22,3 +22,24 @@
 	width: 30px;
 	height: 30px;
 }
+
+.green-change {
+	color: #007200;
+	padding: 6px;
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.red-change {
+	color: #a4161a;
+	padding: 6px;
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.no-change {
+	color: grey;
+	padding: 6px;
+	border-radius: 5px;
+	font-weight: 600;
+}

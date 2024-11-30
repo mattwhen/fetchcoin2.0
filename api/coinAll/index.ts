@@ -5,7 +5,7 @@ import type { RootState } from '@/app/stores/store';
 export const apiSlice = createApi({
     reducerPath: 'apiSlice',
     baseQuery: fetchBaseQuery({ 
-        baseUrl: 'https://openapiv1.coinstats.app/',
+        baseUrl: 'https://openapiv1.coinstats.app/coins?page=1&limit=1000',
         prepareHeaders: (headers) => {
             const apiKey = process.env.NEXT_PUBLIC_APP_KEY;
         
@@ -19,7 +19,7 @@ export const apiSlice = createApi({
     }),
     endpoints: builder => ({
         getCoins: builder.query({
-            query: () => 'coins'
+            query: () => ''
         })
     }),
   })

@@ -7,6 +7,24 @@
 	animation: spin 0.5s linear infinite;
 }
 
+.green-change {
+	color: #007200;
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.red-change {
+	color: #a4161a;
+	border-radius: 5px;
+	font-weight: 700;
+}
+
+.no-change {
+	color: gray;
+	border-radius: 5px;
+	font-weight: 600;
+}
+
 @keyframes spin {
 	100% {
 		transform: rotate(360deg);
@@ -18,3 +36,4 @@
 		background-color: rgba(13, 134, 255, 0.08);
 	}
 }
+
