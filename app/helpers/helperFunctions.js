@@ -1,6 +1,6 @@
 // Adds comma formatting to "Price" column.
 export function numberWithCommas(num) {
-	return "$" + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+return "$" + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 // Handles assigning classes to each of the price change elements depending if there was a positive, negative, or no change in it's price.
@@ -15,12 +15,15 @@ export function renderNumberFormatting(num) {
 }
 
 export function roundNum(num) {
-	if (num > 1) {
+	if (num >= 1000) {
 		return numberWithCommas(num.toFixed(2));
 	}
-	if (num < 0.0001) {
-		return num.toFixed(8);
-	} else {
-		return num.toFixed(10);
+	if (num > 1) {
+		return num.toFixed(4);
 	}
+	if (num > 0.0001) {
+		return num.toFixed(6);
+	} 
+
+	return num.toFixed(10);
 }

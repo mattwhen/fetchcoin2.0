@@ -1,58 +1,36 @@
-import Loading from "../components/Loading/Loading";
+"use client";
+import React, { useEffect, useState } from 'react';
+import { fetchCoinDetails } from '@/api/coinDetails';
 import CoinInfo from "../components/CoinInfo/CoinInfo";
+import Loading from '../components/Loading/Loading';
+import { numberWithCommas, percentageChange } from '../helpers/helperFunctions';
+import './types';
+import { CoinDetails } from './types';
 
-const Page = async ({ params }) => {
-	interface Params {
-		coin: string;
-	}
+const Page = ({ params }) => {
 
-	const apiKey = process.env.NEXT_PUBLIC_APP_KEY;
+  const [coinData, setCoinData] = useState<CoinDetails | null>(null);
 
-	if (!apiKey) {
-		return <div>Error: API key is missing or invalid.</div>;
-	}
-
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-			"X-API-KEY": apiKey,
-		},
-	};
-
-	try {
-		const res = await fetch(
-			`https://openapiv1.coinstats.app/coins/${params.coin}`,
-			options
-		);
-		const coin = await res.json();
-
-		if (!res.ok) {
-			throw new Error(
-				`HTTP Error status code: ${res.status} - ${res.statusText}`
-			);
-		}
-
-		return (
+  useEffect(() => {
+    const fetchData = async () => {
+    try {
+      const getCoinDetails = await fetchCoinDetails(params.coin);
+      setCoinData(getCoinDetails);
+      console.log("getCoinDetails", getCoinDetails);
+      
+    } catch (error) {
+      throw new Error(
+        `An error has occurred trying to display results: ${error}`
+      )
+    }
+  }
+  fetchData();
+}, [])
+  return (
 			<div>
-				{coin ? <CoinInfo coinData={coin} coinId={coin.id} /> : <Loading />}
+				{coinData ? <CoinInfo coinData={coinData} coinId={coinData.id} /> : <div className='flex justify-center'><Loading/></div>}
 			</div>
 		);
-	} catch (error) {
-		let message = "Unknown Error";
-		if (error instanceof Error) {
-			message = error.message;
-		}
-		console.error("There was an error fetching data: ", message);
-
-		return (
-			<div>
-				<p>
-					<strong>{message}</strong>
-				</p>
-			</div>
-		);
-	}
-};
+}
 
 export default Page;

@@ -3,11 +3,6 @@
     margin: 40px 20px;
 }
 
-.coin-info {
-	flex: 0.2;
-    margin-right: 25px;
-}
-
 .coin-header {
 	display: flex;
 	justify-content: space-between;
@@ -21,6 +16,22 @@
 #coin-icon {
 	width: 30px;
 	height: 30px;
+}
+
+.center-panel {
+	flex: 0.7;
+	margin-left: 5px;
+	border: solid red 2px;
+	border-radius: 10px;
+}
+
+.left-panel {
+	flex: 0.3;
+	margin-right: 5px;
+	border: solid red 2px;
+	border-radius: 10px;
+	margin-left: 15px;
+	padding: 8px;
 }
 
 .green-change {

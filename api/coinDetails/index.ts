@@ -1,26 +1,36 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { CoinDetails } from "./types.ts";
+import { CoinDetails } from "./types";
 
-export const coinDetailsApi = createApi({
-    reducerPath: 'coinDetailsApi',
-    baseQuery: fetchBaseQuery({ 
-        baseUrl: 'https://openapiv1.coinstats.app/coins?page=1&limit=1000',
-        prepareHeaders: (headers) => {
-            const apiKey = process.env.NEXT_PUBLIC_APP_KEY;
+const apiKey = process.env.NEXT_PUBLIC_APP_KEY || "";
+
+export const fetchCoinDetails = async (endpoint: Promise<CoinDetails>) => {
+	const options = {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			"X-API-KEY": apiKey,
+		},
+	};
+
+	try {
+		const res = await fetch(
+			`https://openapiv1.coinstats.app/coins/${endpoint}`,
+			options
+		);
+		if (!res.ok) {
+			throw new Error(
+				`HTTP Error status code: ${res.status} - ${res.statusText}`
+			);
+		}
+
+		const coin = await res.json();
+		return coin;
+	} catch (error) {
+		let message = "Unknown Error";
+		if (error instanceof Error) {
+			message = error.message;
+		}
+
+        console.error("There was an error fetching data: ", message);
         
-            if (apiKey) {
-                headers.set('accept', 'application/json');
-                headers.set('X-API-KEY', apiKey);
-            }
-    
-            return headers; 
-        } 
-    }),
-    endpoints: builder => ({
-        getCoinDetails: builder.query<CoinDetails, string>({
-            query: (coinId) => `coins/bitcoin`
-        })
-    }),
-  })
-
-export const { useGetCoinDetailsQuery } = coinDetailsApi; 
+	}
+};

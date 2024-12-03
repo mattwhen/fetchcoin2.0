@@ -12,7 +12,6 @@ import {
 import Loading from "../Loading/Loading";
 import Pagination from "../Pagination/Pagination";
 import "./module.Table.css";
-import { useGetCoinDetailsQuery } from "@/api/coinDetails";
 import TableProps from "./types";
 import { useRouter } from 'next/navigation';
 

@@ -7,5 +7,7 @@ export interface CoinDetails {
     price: number,
     volume: number,
     marketCap: number, 
-    availableSupply: number
+    availableSupply: number,
+    priceChange1d: number,
+    totalSupply: number,
 }
