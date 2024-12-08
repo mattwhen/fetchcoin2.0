@@ -59,7 +59,7 @@ const Nav = () => {
 					id="desktopUl"
 				>
 					<div className="logo lg:flex lg:justify-center">
-						<a href="/fetchcoin" className="">
+						<a href="/" className="">
 							<Image
 								src={`/assets/Logo_whiteBg.png`}
 								className="cursor-pointer"

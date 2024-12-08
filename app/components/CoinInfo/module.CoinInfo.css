@@ -1,6 +1,7 @@
 .coin-container {
     display: flex;
     margin: 40px 20px;
+	height: 1000px;
 }
 
 .coin-header {
@@ -18,20 +19,28 @@
 	height: 30px;
 }
 
-.center-panel {
-	flex: 0.7;
-	margin-left: 5px;
-	border: solid red 2px;
-	border-radius: 10px;
+.table-border {
+	padding: 10px;
+}
+
+.table-border:not(:last-child) {
+	border-bottom: solid rgb(187, 184, 184) 1px;
+}
+
+th {
+	font-size: 14px;
 }
 
 .left-panel {
 	flex: 0.3;
-	margin-right: 5px;
-	border: solid red 2px;
+	margin-right: 25px;
+	width: 300px;
+	background-color: white;
+	border: solid rgb(187, 184, 184) 1px;
 	border-radius: 10px;
 	margin-left: 15px;
 	padding: 8px;
+	margin-bottom: 20px;
 }
 
 .green-change {

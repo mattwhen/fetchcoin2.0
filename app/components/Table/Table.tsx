@@ -5,6 +5,7 @@ import { useGetCoinsQuery } from "@/api/coinAll";
 import { ApiResponse } from "@/api/coinAll/types";
 import { useEffect, useState } from "react";
 import {
+	currencyWithCommas,
 	numberWithCommas,
 	percentageChange,
 	renderNumberFormatting,
@@ -50,7 +51,7 @@ const Table: React.FunctionComponent<TableProps> = ({
 		{
 			id: 0,
 			name: "Rank",
-			className: "pl-2"
+			className: "ml-4"
 		},
 		{
 			id: 1,
@@ -65,27 +66,27 @@ const Table: React.FunctionComponent<TableProps> = ({
 		{
 			id: 3,
 			name: "24h %",
-			className: "justify-end"
+			className: "justify-end w-[150px]"
 		},
 		{
 			id: 4,
 			name: "1h %",
-			className: "justify-end"
+			className: "justify-end w-[150px]"
 		},
 		{
 			id: 5,
 			name: "Market Cap",
-			className: "justify-end"
+			className: "justify-end w-[150px]"
 		},
 		{
 			id: 5,
 			name: "Total Supply",
-			className: "justify-end"
+			className: "justify-end ml-3 w-[150px]"
 		},
 		{
 			id: 6,
 			name: "Volume",
-			className: "justify-end pr-4"
+			className: "justify-end  w-[150px]"
 		},
 	];
 
@@ -102,14 +103,14 @@ const Table: React.FunctionComponent<TableProps> = ({
 							<tr>
 								{tableHeaders.map((header) => (
 									<th key={header.id}>
-										<div className={`flex items-center py-4 font-semibold w-full h-full ${header.className}`}>
+										<div className={`flex items-center py-4 font-semibold h-full ${header.className}`}>
 											<span>{header.name}</span>
 										</div>
 									</th>
 								))}
 							</tr>
 						</thead>
-						<tbody>
+						<tbody className="bg-white">
 							{coin.result
 								?.slice(page * 20 - 20, page * 20)
 								.map((coin: ApiResponse) => (
@@ -147,7 +148,7 @@ const Table: React.FunctionComponent<TableProps> = ({
 										<td className="table-cell">
 											<Link href={`${coin.id}`} className="block h-full">
 												<div className="flex items-center justify-start pr-4 w-[150px] h-full">
-													{numberWithCommas(coin.price.toFixed(2))}
+													{currencyWithCommas(coin.price.toFixed(2))}
 												</div>
 											</Link>
 										</td>

@@ -9,5 +9,7 @@ export interface CoinDetails {
     marketCap: number, 
     availableSupply: number,
     priceChange1d: number,
+    priceChange1h: number,
+    priceChange1w: number,
     totalSupply: number,
 }
