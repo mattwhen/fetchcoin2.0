@@ -1,0 +1,52 @@
+.center-panel {
+	flex: 0.7;
+	margin-left: 5px;
+	background-color: white;
+	border: solid rgb(187, 184, 184) 1px;
+	border-radius: 10px;
+}
+
+.line-graph {
+    position: relative;
+    width: 100%;
+    /* max-width: 600px; */
+    height: 300px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  
+  .point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .point::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 2px solid #4caf50;
+    left: 50%;
+    bottom: 50%;
+    z-index: -1;
+    transform-origin: 0% 100%;
+  }
+  
+  .point:nth-child(1)::before {
+    width: calc(20% - 5px);
+    transform: rotate(25deg);
+  }
+  
+  .point:nth-child(2)::before {
+    width: calc(20% - 5px);
+    transform: rotate(-25deg);
+  }
+  
+  /* Connect. */
+  
