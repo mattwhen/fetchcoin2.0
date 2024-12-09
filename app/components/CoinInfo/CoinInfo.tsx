@@ -14,8 +14,6 @@ export default function CoinInfo(
 ) {
 	return (
 		<>
-			<Nav />
-			<div className="coin-container">
 				<div className="left-panel-container">
 					<div className="left-panel">
 						<div className="coin-header flex items-center justify-center mb-3">
@@ -49,28 +47,31 @@ export default function CoinInfo(
 							</div>
 						</div>
 						<table className="w-full">
-							<tr className="table-border flex justify-between ">
-								<th>Volume</th>
-								<td>{numberWithCommas(coinData?.volume.toFixed(0))}</td>
-							</tr>
-							<tr className="table-border flex justify-between">
-								<th>Market Cap</th>
-								<td>{numberWithCommas(coinData?.marketCap.toFixed(0))}</td>
-							</tr>
-							<tr className="table-border flex justify-between">
-								<th>Available Supply</th>
-								<td>
-									{numberWithCommas(coinData?.availableSupply.toFixed(0))}
-								</td>
-							</tr>
-							<tr className="table-border flex justify-between">
-								<th>Total Supply</th>
-								<td>{numberWithCommas(coinData?.totalSupply.toFixed(0))}</td>
-							</tr>
+							<thead>
+								<tr className="table-border flex justify-between ">
+									<th>Volume</th>
+									<td>{numberWithCommas(coinData?.volume.toFixed(0))}</td>
+								</tr>
+								<tr className="table-border flex justify-between">
+									<th>Market Cap</th>
+									<td>{numberWithCommas(coinData?.marketCap.toFixed(0))}</td>
+								</tr>
+								<tr className="table-border flex justify-between">
+									<th>Available Supply</th>
+									<td>
+										{numberWithCommas(coinData?.availableSupply.toFixed(0))}
+									</td>
+								</tr>
+								<tr className="table-border flex justify-between">
+									<th>Total Supply</th>
+									<td>{numberWithCommas(coinData?.totalSupply.toFixed(0))}</td>
+								</tr>
+							</thead>
 						</table>
 					</div>
 					<div className="left-panel">
 						<table className="w-full">
+							<tbody>
 							<tr className="table-border flex justify-between items-center">
 								<th>Price 1h</th>
 								<td className={percentageChange(coinData?.priceChange1h)}>
@@ -89,11 +90,10 @@ export default function CoinInfo(
 									{coinData?.priceChange1w + "%"}
 								</td>
 							</tr>
+							</tbody>
 						</table>
 					</div>
 				</div>
-				<PriceGraph />
-			</div>
 		</>
 	);
 }

@@ -1,17 +1,16 @@
 import { CoinDetails } from "./types";
 
-const apiKey = process.env.NEXT_PUBLIC_APP_KEY || "";
 
 export const fetchCoinDetails = async (endpoint: Promise<CoinDetails>) => {
-	const options = {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			"X-API-KEY": apiKey,
-		},
-	};
-
 	try {
+		const apiKey = process.env.NEXT_PUBLIC_APP_KEY || "";
+		const options = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"X-API-KEY": apiKey,
+			},
+		};
 		const res = await fetch(
 			`https://openapiv1.coinstats.app/coins/${endpoint}`,
 			options

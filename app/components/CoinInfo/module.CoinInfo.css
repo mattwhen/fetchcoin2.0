@@ -1,8 +1,9 @@
-.coin-container {
+/* .coin-container {
     display: flex;
+	justify-content: center;
     margin: 40px 20px;
 	height: 1000px;
-}
+} */
 
 .coin-header {
 	display: flex;
@@ -33,14 +34,16 @@ th {
 
 .left-panel {
 	flex: 0.3;
-	margin-right: 25px;
-	width: 300px;
+	width: 100%;
 	background-color: white;
 	border: solid rgb(187, 184, 184) 1px;
 	border-radius: 10px;
-	margin-left: 15px;
 	padding: 8px;
 	margin-bottom: 20px;
+}
+
+.left-panel-container {
+	margin-right: 10px;
 }
 
 .green-change {
