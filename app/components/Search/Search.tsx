@@ -78,7 +78,7 @@ const Search = ({
 					<ul className="suggestions top-96 lg:top-72 hover:cursor-pointer hover:bg-blue-background-hover">
 						{filteredData?.slice(0, 10).map((coin) => {
 							return (
-								<Link src={`/coin/${coin.id}`}>
+								<Link src={`/coin/${coin.id}`} key={coin.id}>
 									<li className="hover:bg-blue-highlight hover:text-white">
 										<div className="flex items-center">
 											<span className="font-bold hover:text-white">
