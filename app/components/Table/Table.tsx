@@ -79,12 +79,12 @@ const Table: React.FunctionComponent<TableProps> = ({
 			className: "justify-end w-[150px]"
 		},
 		{
-			id: 5,
+			id: 6,
 			name: "Total Supply",
 			className: "justify-end ml-3 w-[150px]"
 		},
 		{
-			id: 6,
+			id: 7,
 			name: "Volume",
 			className: "justify-end  w-[150px]"
 		},

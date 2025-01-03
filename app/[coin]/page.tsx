@@ -10,23 +10,19 @@ import PriceGraph from "../components/PriceGraph/PriceGraph";
 import CoinInfoContainer from "../components/CoinInfoContainer/CoinInfoContainer";
 import Nav from "../components/Nav/Nav";
 import { CoinChart } from "@/api/coinChart/types";
-import { fetchCoinChart } from "@/api/coinChart";
+import { Provider } from "react-redux";
+import { store } from "../stores/store";
 
 const Page = ({ params }) => {
 	const [coinData, setCoinData] = useState<CoinDetails | null>(null);
-  const [graphData, setGraphData] = useState<any[][]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const getCoinDetails = await fetchCoinDetails(params.coin);
-        const getGraphDetails = await fetchCoinChart(params.coin);
 
 				setCoinData(getCoinDetails);
-        setGraphData(getGraphDetails);
 
-        console.log(getGraphDetails);
-        
 			} catch (error) {
 				throw new Error(
 					`An error has occurred trying to display results: ${error}`
@@ -36,14 +32,16 @@ const Page = ({ params }) => {
 		fetchData();
 	}, []);
 	return (
-		<>
-    <Nav />
-			{coinData ? <CoinInfoContainer coinData={coinData} coinId={coinData.id} /> : (
+		<Provider store={store}>
+			<Nav />
+			{coinData ? (
+				<CoinInfoContainer coinData={coinData} coinId={coinData.id} />
+			) : (
 				<div className="flex justify-center items-center">
 					<Loading />
 				</div>
 			)}
-		</>
+		</Provider>
 	);
 };
 

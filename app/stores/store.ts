@@ -1,17 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { Action, ThunkAction } from "@reduxjs/toolkit";
 import { apiSlice } from "@/api/coinAll";
+import { chartApi } from "@/api/coinChart";
 
 export const store = configureStore({
 	reducer: {
 		// Add the generated reducer at a specific top-level slice
 		[apiSlice.reducerPath]: apiSlice.reducer,
-
+		[chartApi.reducerPath]: chartApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
-	.concat(apiSlice.middleware)
-
+			.concat(apiSlice.middleware) 
+			.concat(chartApi.middleware),
 });
 
 // Infer the type of `store`

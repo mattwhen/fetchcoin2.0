@@ -4,9 +4,6 @@ import "./module.CoinInfo.css";
 import "./types";
 import { CoinDetails } from "./types";
 import { numberWithCommas } from "../../helpers/helperFunctions";
-import Nav from "../Nav/Nav";
-import PriceGraph from "../PriceGraph/PriceGraph";
-import Loading from "../Loading/Loading";
 
 export default function CoinInfo(
 	{ coinData }: { coinData: CoinDetails },

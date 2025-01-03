@@ -1,20 +1,25 @@
-import { CoinChart } from "./types";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const fetchCoinChart = async (endpoint: Promise<CoinChart>) => {
-    
-    try {
-        const apiKey = process.env.NEXT_PUBLIC_APP_KEY || "";
-        const options = {
-            method: 'GET',
-            headers: {'X-API-KEY': 'jiwIldx8TSZLXxrEGxipfh+dZt7o9yArzqrjw2sEofA='}
-          };
+export const chartApi = createApi({
+	reducerPath: "chartApi",
+	baseQuery: fetchBaseQuery({
+		baseUrl: "https://openapiv1.coinstats.app/coins/",
+		prepareHeaders: (headers) => {
+			const apiKey = process.env.NEXT_PUBLIC_APP_KEY;
 
-        const res = await fetch(`https://openapiv1.coinstats.app/coins/${endpoint}/charts?period=1y`, options);
-        const data = await res.json();
+			if (apiKey) {
+				headers.set("accept", "application/json");
+				headers.set("X-API-KEY", apiKey);
+			}
 
-        console.log(data);
-        
-    } catch (error) {
-        console.error("There was an error retrieving chart data", error);
-    }
-}
+			return headers;
+		},
+	}),
+	endpoints: (builder) => ({
+		getChartData: builder.query({
+			query: (endpoint) => `${endpoint}/charts?period=1w`,
+		}),
+	}),
+});
+
+export const { useGetChartDataQuery } = chartApi;
