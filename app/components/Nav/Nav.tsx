@@ -3,14 +3,9 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
-// import "../../App.css";
 import "./Nav.css";
 
 const Nav = () => {
-	interface MobileHandler {
-		// () => void
-	}
-
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [showNav, setShowNav] = useState(true);
 
@@ -62,6 +57,7 @@ const Nav = () => {
 						<a href="/" className="">
 							<Image
 								src={`/assets/Logo_whiteBg.png`}
+								priority={true}
 								className="cursor-pointer"
 								alt="Company Logo"
 								width={150}

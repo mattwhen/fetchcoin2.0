@@ -6,14 +6,18 @@ import Loading from "../components/Loading/Loading";
 import { numberWithCommas, percentageChange } from "../helpers/helperFunctions";
 import "./types";
 import { CoinDetails } from "./types";
-import PriceGraph from "../components/PriceGraph/PriceGraph";
 import CoinInfoContainer from "../components/CoinInfoContainer/CoinInfoContainer";
 import Nav from "../components/Nav/Nav";
-import { CoinChart } from "@/api/coinChart/types";
 import { Provider } from "react-redux";
 import { store } from "../stores/store";
 
-const Page = ({ params }) => {
+type ParamsProps = {
+	params: {
+		coin: Promise<CoinDetails>
+	}
+}
+
+const Page = ({ params }: ParamsProps) => {
 	const [coinData, setCoinData] = useState<CoinDetails | null>(null);
 
 	useEffect(() => {
@@ -22,7 +26,6 @@ const Page = ({ params }) => {
 				const getCoinDetails = await fetchCoinDetails(params.coin);
 
 				setCoinData(getCoinDetails);
-
 			} catch (error) {
 				throw new Error(
 					`An error has occurred trying to display results: ${error}`
@@ -30,7 +33,7 @@ const Page = ({ params }) => {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [params.coin]);
 	return (
 		<Provider store={store}>
 			<Nav />

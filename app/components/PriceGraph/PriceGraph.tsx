@@ -29,10 +29,8 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 		const getDataPoints = () => {
 			try {
 				const result = graph.map((data: number[]) => data[1]);
-				console.log("Result ", result);
 				setDataPoints(result);
 
-				console.log(result);
 			} catch (error) {
 				console.error("There was an error fetching chart data: ", error);
 			}
@@ -46,14 +44,15 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 
 		const getLabels = () => {
 			try {
-				const result = graph.map((label: number[]) => new Date(label[0] * 1000));
-				console.log("Result: ", result);
+				const result = graph.map(
+					(label: number[]) => new Date(label[0] * 1000)
+				);
 
-				const formattedDate = result.map((date: number) => format(date, "HH:mm"));
+				const formattedDate = result.map((date: number) =>
+					format(date, "HH:mm")
+				);
 
 				setLabels(formattedDate);
-
-				console.log("Labels: ", formattedDate);
 			} catch (error) {
 				console.error("There was an error fetching label data: ", error);
 			}
