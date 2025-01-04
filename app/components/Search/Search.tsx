@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
-import KeyboardCommandKeyIcon from "@mui/icons-material/KeyboardCommandKey";
 import "./module.Search.css";
 
 const Search = ({
@@ -15,7 +14,21 @@ const Search = ({
 }) => {
 	const [userValue, setUserValue] = useState("");
 	const [placeholderText, setPlaceholderText] = useState("");
-	const inputRef = useRef(null);
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	type ApiResponse = {
+		id: string,
+		marketCap: number,
+		name: string,
+		price: number,
+		rank: number,
+		icon: string,
+		symbol: string,
+		priceChange1d: number,
+		priceChange1h: number,
+		totalSupply: number,
+		volume: number,
+	}
 
 	// Keyboard shortcut to toggle the searchbar.
 	useEffect(() => {
@@ -28,13 +41,16 @@ const Search = ({
 		window.addEventListener("keydown", handleKeyDown);
 	}, []);
 
-	function handleSuggestions(e) {
-		setUserValue(e.target.value);
+	function handleSuggestions(e: React.ChangeEvent<HTMLInputElement>) {
+		if (e.target) {
+			setUserValue(e.target.value);
+		}
 
 		const searchValue = userValue;
+		console.log("Data", data);
 
 		setSearchBarValue(searchValue);
-		const filter = data.filter((coin) => {
+		const filter = data.filter((coin: ApiResponse) => {
 			return (
 				coin.id.includes(searchBarValue.toLowerCase()) ||
 				coin.symbol.includes(searchBarValue.toUpperCase())
@@ -45,15 +61,19 @@ const Search = ({
 		handleMatches(e);
 	}
 
-	function handleMatches(e) {
+	function handleMatches(e: React.ChangeEvent<HTMLInputElement>) {
 		// TODO: Highlight the user's value's and match it with the suggestions that render.
-		console.log(e.target.value);
+		if(e.target){
+			console.log(e.target.value);
+		}
 	}
 
-	const handleKeyDown = (e) => {
+	const handleKeyDown = (e: KeyboardEvent) => {
 		// useRef hook will be used to focus on the input field once the keyboard shortcut (CMD + "k") are pressed.
-		if (e.metaKey && e.key === "k") {
-			inputRef.current.focus();
+		if(inputRef.current) {
+			if (e.metaKey && e.key === "k") {
+				inputRef.current?.focus();
+			}
 		}
 	};
 
@@ -76,7 +96,7 @@ const Search = ({
 				</div>
 				<div className={value ? "suggestionsContainer" : "hidden"}>
 					<ul className="suggestions top-96 lg:top-72 hover:cursor-pointer hover:bg-blue-background-hover">
-						{filteredData?.slice(0, 10).map((coin) => {
+						{filteredData?.slice(0, 10).map((coin: ApiResponse) => {
 							return (
 								<Link src={`/coin/${coin.id}`} key={coin.id}>
 									<li className="hover:bg-blue-highlight hover:text-white">

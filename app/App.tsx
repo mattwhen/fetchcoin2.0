@@ -8,18 +8,13 @@ import Table from "./components/Table/Table";
 import Mission from "./components/Mission/Mission";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
-import PostsList from "./components/CoinList/CoinList";
-import { ApiResponse } from "../api/coinAll/types";
 
 const App = () => {
-	const [data, setData] = useState<ApiResponse[]>([]);
+	const [data, setData] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [page, setPage] = useState<number>(1);
 	const [searchBarValue, setSearchBarValue] = useState("");
-
-	const apiKey = process.env.REACT_APP_KEY;
-	const url = `https://openapiv1.coinstats.app/coins?page=1&limit=1000`;
 
 	return (
 		<>
@@ -35,8 +30,6 @@ const App = () => {
 					data={data}
 				/>
 				<Table
-					data={data}
-					setData={setData}
 					loading={loading}
 					setLoading={setLoading}
 					page={page}

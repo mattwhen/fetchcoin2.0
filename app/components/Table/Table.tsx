@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useGetCoinsQuery } from "@/api/coinAll";
-import { ApiResponse } from "@/api/coinAll/types";
 import { useEffect, useState } from "react";
 import {
 	currencyWithCommas,
@@ -13,18 +12,36 @@ import {
 import Loading from "../Loading/Loading";
 import Pagination from "../Pagination/Pagination";
 import "./module.Table.css";
-import TableProps from "./types";
 import { useRouter } from 'next/navigation';
 
+interface TableProps {
+	loading: boolean;
+	page: number;
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	setPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+interface ApiResponse {
+	id: string,
+    marketCap: number,
+    name: string,
+    price: number,
+    rank: number,
+    icon: string,
+    symbol: string,
+    priceChange1d: number,
+    priceChange1h: number,
+    totalSupply: number,
+    volume: number,
+}
+
 const Table: React.FunctionComponent<TableProps> = ({
-	data,
-	loading,
 	page,
 	setPage,
-	setData,
 }) => {
 	const { data: coin, isError, isLoading } = useGetCoinsQuery({});
 	const [isNavigating, setIsNavigating] = useState(false);
+
 
 	const router = useRouter();
 
@@ -34,17 +51,6 @@ const Table: React.FunctionComponent<TableProps> = ({
 
 	if (isError) {
 		return <div>Error</div>;
-	}
-
-	const handleNavigation = () => {
-		if(!isNavigating) {
-			setIsNavigating(true);
-		}
-
-	}
-
-	const handleClick = () => {
-		router.push(`${coin.id}`);
 	}
 
 	const tableHeaders = [

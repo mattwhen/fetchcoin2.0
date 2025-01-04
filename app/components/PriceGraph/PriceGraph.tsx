@@ -28,7 +28,7 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 		// Fetch and process data
 		const getDataPoints = () => {
 			try {
-				const result = graph.map((data) => data[1]);
+				const result = graph.map((data: number[]) => data[1]);
 				console.log("Result ", result);
 				setDataPoints(result);
 
@@ -46,10 +46,10 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 
 		const getLabels = () => {
 			try {
-				const result = graph.map((label) => new Date(label[0] * 1000));
+				const result = graph.map((label: number[]) => new Date(label[0] * 1000));
 				console.log("Result: ", result);
 
-				const formattedDate = result.map((date) => format(date, "HH:mm"));
+				const formattedDate = result.map((date: number) => format(date, "HH:mm"));
 
 				setLabels(formattedDate);
 
@@ -65,7 +65,7 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 	useEffect(() => {
 		// if (!dataPoints || !labels) return;
 
-		const ctx = document.getElementById("coinChart");
+		const ctx = document.getElementById("coinChart") as HTMLCanvasElement;
 		if (!ctx) return;
 		let myChart = new Chart(ctx, {
 			type: "line",
