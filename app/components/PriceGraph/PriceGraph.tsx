@@ -3,9 +3,6 @@ import { useGetChartDataQuery } from "@/api/coinChart";
 import React, { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import "./module.PriceGraph.css";
-import "./types";
-import Loading from "../Loading/Loading";
-const { secondsToHours } = require("date-fns");
 
 // "Strictly" type or "Strongly" type your API data. That way you know what exactly you know what to expect from the data.
 type PriceGraphProps = {
