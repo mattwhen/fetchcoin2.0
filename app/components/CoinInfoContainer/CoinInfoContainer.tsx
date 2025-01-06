@@ -4,11 +4,33 @@ import PriceGraph from "../PriceGraph/PriceGraph";
 import "./module.CoinInfoContainer.css";
 import "./types";
 
-const CoinInfoContainer: React.FC<CoinDataProps> = ({ coinData, coinId }) => {
+type CoinDetails = {
+	id: string;
+	icon: string;
+	name: string;
+	symbol: string;
+	rank: number;
+	price: number;
+	volume: number;
+	marketCap: number;
+	availableSupply: number;
+	priceChange1d: number;
+	priceChange1h: number;
+	priceChange1w: number;
+	totalSupply: number;
+};
+
+type CoinDetailsProps = {
+	coinData: CoinDetails;
+};
+
+const CoinInfoContainer: React.FC<CoinDetailsProps> = ({
+	coinData,
+}) => {
 	return (
 		<div className="coin-container">
-			<CoinInfo coinData={coinData} coinId={coinData} />
-			<PriceGraph coinId={coinId} />
+			<CoinInfo coinData={coinData} />
+			<PriceGraph coinId={coinData.id} />
 		</div>
 	);
 };

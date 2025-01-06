@@ -1,11 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { fetchCoinDetails } from "@/api/coinDetails";
-import CoinInfo from "../components/CoinInfo/CoinInfo";
 import Loading from "../components/Loading/Loading";
-import { numberWithCommas, percentageChange } from "../helpers/helperFunctions";
 import "./types";
-import { CoinDetails } from "./types";
 import CoinInfoContainer from "../components/CoinInfoContainer/CoinInfoContainer";
 import Nav from "../components/Nav/Nav";
 import { Provider } from "react-redux";
@@ -13,9 +10,25 @@ import { store } from "../stores/store";
 
 type ParamsProps = {
 	params: {
-		coin: Promise<CoinDetails>
-	}
-}
+		coin: Promise<CoinDetails>;
+	};
+};
+
+type CoinDetails = {
+    id: string,
+    icon: string,
+    name: string,
+    symbol: string,
+    rank: number,
+    price: number,
+    volume: number,
+    marketCap: number, 
+    availableSupply: number,
+    priceChange1d: number,
+    priceChange1h: number,
+    priceChange1w: number,
+    totalSupply: number,
+};
 
 const Page = ({ params }: ParamsProps) => {
 	const [coinData, setCoinData] = useState<CoinDetails | null>(null);
@@ -24,7 +37,7 @@ const Page = ({ params }: ParamsProps) => {
 		const fetchData = async () => {
 			try {
 				const getCoinDetails = await fetchCoinDetails(params.coin);
-
+				console.log("Params: ", params);
 				setCoinData(getCoinDetails);
 			} catch (error) {
 				throw new Error(
@@ -38,7 +51,7 @@ const Page = ({ params }: ParamsProps) => {
 		<Provider store={store}>
 			<Nav />
 			{coinData ? (
-				<CoinInfoContainer coinData={coinData} coinId={coinData.id} />
+				<CoinInfoContainer coinData={coinData} />
 			) : (
 				<div className="flex justify-center items-center">
 					<Loading />
