@@ -3,7 +3,6 @@ import React from "react";
 import { useState } from "react";
 import Nav from "./components/Nav/Nav";
 import Intro from "./components/Intro/Intro";
-import Search from "./components/Search/Search";
 import Table from "./components/Table/Table";
 import Mission from "./components/Mission/Mission";
 import Contact from "./components/Contact/Contact";
@@ -21,14 +20,14 @@ const App = () => {
 			<Nav />
 			<div className="px-3">
 				<Intro />
-				<Search
+				{/* <Search
 					value={searchBarValue}
 					setFilteredData={setFilteredData}
 					filteredData={filteredData}
 					searchBarValue={searchBarValue}
 					setSearchBarValue={setSearchBarValue}
 					data={data}
-				/>
+				/> */}
 				<Table
 					loading={loading}
 					setLoading={setLoading}
