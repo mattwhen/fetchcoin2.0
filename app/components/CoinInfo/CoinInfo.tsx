@@ -11,6 +11,9 @@ export default function CoinInfo(
 	return (
 		<>
 			<div className="left-panel-container">
+				{
+					
+				}
 				<div className="left-panel">
 					<div className="coin-header flex items-center justify-center mb-3">
 						<div className="name-header flex items-center justify-center">

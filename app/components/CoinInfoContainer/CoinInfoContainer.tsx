@@ -28,7 +28,7 @@ const CoinInfoContainer: React.FC<CoinDetailsProps> = ({
 	coinData,
 }) => {
 	return (
-		<div className="coin-container">
+		<div className="flex flex-col md:coin-container">
 			<CoinInfo coinData={coinData} />
 			<PriceGraph coinId={coinData.id} />
 		</div>

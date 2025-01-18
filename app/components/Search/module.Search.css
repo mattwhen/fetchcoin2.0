@@ -18,3 +18,11 @@
     height: 450px;
     z-index: 1000;
 }
+
+.selectedSuggestion {
+    background-color: #a2d2ff !important;
+}
+
+.selectedSuggestion:hover {
+    background-color: #a2d2ff !important;
+}

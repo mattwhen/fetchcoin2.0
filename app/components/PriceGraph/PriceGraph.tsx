@@ -3,6 +3,7 @@ import { useGetChartDataQuery } from "@/api/coinChart";
 import React, { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import "./module.PriceGraph.css";
+import Loading from "../Loading/Loading";
 
 // "Strictly" type or "Strongly" type your API data. That way you know what exactly you know what to expect from the data.
 type PriceGraphProps = {
@@ -27,7 +28,6 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 			try {
 				const result = graph.map((data: number[]) => data[1]);
 				setDataPoints(result);
-
 			} catch (error) {
 				console.error("There was an error fetching chart data: ", error);
 			}
@@ -73,8 +73,8 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 						data: dataPoints,
 						borderWidth: 3,
 						pointBorderWidth: 0,
-						pointRadius: 5,
-						pointHoverRadius: 7,
+						pointRadius: 2,
+						pointHoverRadius: 5,
 						pointHoverBackgroundColor: "red",
 					},
 				],
@@ -100,7 +100,9 @@ const PriceGraph = ({ coinId }: PriceGraphProps) => {
 		<>
 			<div className="center-panel">
 				{isLoading ? (
-					<div className="line-graph">Loading</div>
+					<div className="flex justify-center items-center h-full">
+						<Loading />
+					</div>
 				) : (
 					<div className="line-graph">
 						<canvas id="coinChart"></canvas>

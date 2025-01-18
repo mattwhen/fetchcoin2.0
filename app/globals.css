@@ -5,3 +5,15 @@
 html {
     background-color: #faf8f4;
 }
+
+@layer utilities {
+    @screen lg {
+        .coin-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 40px 20px;
+            height: 500px;
+        }
+    }
+}

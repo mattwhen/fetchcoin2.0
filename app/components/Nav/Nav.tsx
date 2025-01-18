@@ -47,7 +47,7 @@ const Nav = () => {
 
 	return (
 		<>
-			<nav className="bg-white sticky top-0 z-50 h-16 max-w-[1920px] shadow-sm">
+			<nav className="sticky bg-white top-0 z-50 h-16 max-w-[1920px] shadow-sm">
 				{/* DESKTOP NAVIGATION LINKS */}
 				<div
 					className="hidden w-full px-4 text-black lg:flex lg:items-center lg:justify-center"
@@ -77,23 +77,6 @@ const Nav = () => {
 								</a>
 							);
 						})}
-					</div>
-					{/* Log in & Sign up buttons */}
-					<div className="hidden lg:flex">
-						<Link href="/login">
-							<button className="log-in rounded-full mr-2 text-center w-24 bg-blue-background text-white py-2 px-4 hover:bg-blue-background-hover">
-								Log in
-							</button>
-						</Link>
-						<Link href="/signup">
-							<button className="sign-up rounded-full text-center w-24 bg-gold-trim text-white py-2 px-4 hover:bg-gold-trim-hover">
-								Sign up
-							</button>
-						</Link>
-
-						<button className="rounded-full text-center w-24 bg-gold-trim text-white py-2 px-4 hover:bg-gold-trim-hover">
-							Sign Out
-						</button>
 					</div>
 				</div>
 				{/* Mobile view */}

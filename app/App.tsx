@@ -7,6 +7,7 @@ import Table from "./components/Table/Table";
 import Mission from "./components/Mission/Mission";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
+import Search from "./components/Search/Search";
 
 const App = () => {
 	const [data, setData] = useState([]);
@@ -20,14 +21,14 @@ const App = () => {
 			<Nav />
 			<div className="px-3">
 				<Intro />
-				{/* <Search
+				<Search
 					value={searchBarValue}
 					setFilteredData={setFilteredData}
 					filteredData={filteredData}
 					searchBarValue={searchBarValue}
 					setSearchBarValue={setSearchBarValue}
 					data={data}
-				/> */}
+				/>
 				<Table
 					loading={loading}
 					setLoading={setLoading}

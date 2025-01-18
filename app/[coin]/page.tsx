@@ -7,6 +7,7 @@ import CoinInfoContainer from "../components/CoinInfoContainer/CoinInfoContainer
 import Nav from "../components/Nav/Nav";
 import { Provider } from "react-redux";
 import { store } from "../stores/store";
+import { useGetCoinDetailsQuery } from "@/api/coinAll";
 
 type ParamsProps = {
 	params: {
@@ -31,13 +32,15 @@ type CoinDetails = {
 };
 
 const Page = ({ params }: ParamsProps) => {
+	// const { data, error, isLoading} = useGetCoinDetailsQuery({params});
 	const [coinData, setCoinData] = useState<CoinDetails | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const getCoinDetails = await fetchCoinDetails(params.coin);
-				console.log("Params: ", params);
+				console.log("Params: ", params.coin);
+				// console.log("coinData: ", data);
 				setCoinData(getCoinDetails);
 			} catch (error) {
 				throw new Error(

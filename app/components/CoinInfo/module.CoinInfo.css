@@ -1,10 +1,3 @@
-/* .coin-container {
-    display: flex;
-	justify-content: center;
-    margin: 40px 20px;
-	height: 1000px;
-} */
-
 .coin-header {
 	display: flex;
 	justify-content: space-between;
@@ -33,7 +26,7 @@ th {
 }
 
 .left-panel {
-	flex: 0.3;
+	flex: 0.5;
 	width: 100%;
 	background-color: white;
 	border: solid rgb(187, 184, 184) 1px;
