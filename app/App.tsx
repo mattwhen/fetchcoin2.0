@@ -24,7 +24,7 @@ const App = () => {
 				<Search
 					value={searchBarValue}
 					setFilteredData={setFilteredData}
-					filteredData={filteredData}
+					filteredData={filteredData.slice(0, 10)}
 					searchBarValue={searchBarValue}
 					setSearchBarValue={setSearchBarValue}
 					data={data}

@@ -6,12 +6,32 @@ import SearchIcon from "@mui/icons-material/Search";
 import "./module.Search.css"
 import { useGetCoinDetailsQuery, useGetCoinsQuery } from "@/api/coinAll";
 
-const Search = ({
+type Props = {
+	filteredData: ApiResponse[], // Must always be an array.
+	setFilteredData: React.Dispatch<React.SetStateAction<ApiResponse>>,
+	searchBarValue: string,
+	setSearchBarValue: React.Dispatch<React.SetStateAction<string>>
+}
+
+type ApiResponse = {
+	id: string;
+	marketCap: number;
+	name: string;
+	price: number;
+	rank: number;
+	icon: string;
+	symbol: string;
+	priceChange1d: number;
+	priceChange1h: number;
+	totalSupply: number;
+	volume: number;
+};
+
+const Search: React.FC<Props> = ({
 	filteredData,
 	setFilteredData,
 	searchBarValue,
 	setSearchBarValue,
-	value,
 }) => {
 	const [userValue, setUserValue] = useState("");
 	const [showResults, setShowResults] = useState(false);
@@ -19,25 +39,12 @@ const Search = ({
 	const [isClicked, setIsClicked] = useState(false);
 
 	const wrapperRef = useRef<HTMLInputElement>(null);
-	const searchResults = filteredData.slice(0, 10);
 
 	const { data, isLoading } = useGetCoinsQuery({});
 	const router = useRouter();
 
-	type ApiResponse = {
-		id: string;
-		marketCap: number;
-		name: string;
-		price: number;
-		rank: number;
-		icon: string;
-		symbol: string;
-		priceChange1d: number;
-		priceChange1h: number;
-		totalSupply: number;
-		volume: number;
-	};
-
+	console.log(filteredData);
+	
 	const handleClickOutside = (event: MouseEvent) => {
 		// Check if the click is outside the search container
 		if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -49,22 +56,24 @@ const Search = ({
 		setIsClicked(true);
 	}
 
-	const handleKeyDown = (e: KeyboardEventHandler<HTMLInputElement>) => {
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Escape" && wrapperRef.current) {
 			wrapperRef.current.blur();
+			setActiveIndex(-1);
 			setShowResults(false);
 		} else if (e.key === "ArrowDown") {
 			setActiveIndex((prevIndex) =>
-				prevIndex < searchResults.length - 1 ? prevIndex + 1 : 0
+				prevIndex < filteredData.length - 1 ? prevIndex + 1 : 0
 			);
 		} else if (e.key === "ArrowUp") {
 			setActiveIndex((prevIndex) =>
-				prevIndex > 0 ? prevIndex - 1 : searchResults.length - 1
+				prevIndex > 0 ? prevIndex - 1 : filteredData.length - 1
 			);
 		} else if (e.key === "Enter") {
-			if (searchResults[activeIndex].id) {
+			if(filteredData.length === 0) return;
+			if (filteredData[activeIndex].id) {
 				setIsClicked(true);
-				router.push(searchResults[activeIndex].id);
+				router.push(filteredData[activeIndex].id);
 			}
 		}
 	};
@@ -122,7 +131,7 @@ const Search = ({
 				{showResults ? (
 					<div className={wrapperRef ? "suggestionsContainer" : "hidden"}>
 						<ul className="suggestions top-96 lg:top-72 hover:cursor-pointer hover:bg-blue-background-hover">
-							{searchResults?.map((coin: ApiResponse, index: number) => {
+							{filteredData?.map((coin: ApiResponse, index: number) => {
 								return (
 									<Link onClick={isClicked ? (e) => e.preventDefault() : handleClick} href={`${coin.id}`} key={coin.id}>
 										<li className={activeIndex === index ? "selectedSuggestion" : ""}>
