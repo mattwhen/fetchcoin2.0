@@ -40,10 +40,8 @@ const Search: React.FC<Props> = ({
 
 	const wrapperRef = useRef<HTMLInputElement>(null);
 
-	const { data, isLoading } = useGetCoinsQuery({});
+	const { data: coin, isLoading } = useGetCoinsQuery({});
 	const router = useRouter();
-
-	console.log(filteredData);
 	
 	const handleClickOutside = (event: MouseEvent) => {
 		// Check if the click is outside the search container
@@ -53,7 +51,10 @@ const Search: React.FC<Props> = ({
 	};
 
 	const handleClick = () => {
-		setIsClicked(true);
+		if (!isClicked) {
+			setIsClicked(true);
+			router.push(`${coin.id}`)
+		}
 	}
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -98,7 +99,7 @@ const Search: React.FC<Props> = ({
 
 		setSearchBarValue(searchValue);
 
-		const filter = data.result.filter((coin: ApiResponse) => {
+		const filter = coin.result.filter((coin: ApiResponse) => {
 			return (
 				coin.id.includes(searchBarValue.toLowerCase()) ||
 				coin.symbol.includes(searchBarValue.toUpperCase())
@@ -133,7 +134,7 @@ const Search: React.FC<Props> = ({
 						<ul className="suggestions top-96 lg:top-72 hover:cursor-pointer hover:bg-blue-background-hover">
 							{filteredData?.map((coin: ApiResponse, index: number) => {
 								return (
-									<Link onClick={isClicked ? (e) => e.preventDefault() : handleClick} href={`${coin.id}`} key={coin.id}>
+									<a onClick={handleClick} href={`${coin.id}`} key={coin.id} className={isClicked ? "disableCursor" : ""}>
 										<li className={activeIndex === index ? "selectedSuggestion" : ""}>
 											<div className="flex items-center">
 												<span className="font-bold hover:text-white">
@@ -150,7 +151,7 @@ const Search: React.FC<Props> = ({
 											</div>
 											<span>{coin.symbol}</span>
 										</li>
-									</Link>
+									</a>
 								);
 							})}
 						</ul>

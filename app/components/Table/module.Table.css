@@ -25,6 +25,10 @@
 	font-weight: 600;
 }
 
+.disableCursor {
+	cursor: wait;
+}
+
 @keyframes spin {
 	100% {
 		transform: rotate(360deg);

@@ -16,16 +16,10 @@ const Pagination: React.FC<PaginationProps> = ({ data, page, setPage }) => {
 	const [currentRange, setCurrentRange] = useState([1, 2, 3]);
 
 	const numOfCoinsPerPage = 20;
-
-	console.log("Page:", page);
-	console.log(currentRange);
-
 	const firstPage = 1;
 	const lastPage = coin.result.length / numOfCoinsPerPage;
 
 	const handleNextClick = () => {
-		console.log("What page is this?", page);
-
 		if (page === lastPage) {
 			return null;
 		}

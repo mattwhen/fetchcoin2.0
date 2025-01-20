@@ -39,8 +39,6 @@ const Page = ({ params }: ParamsProps) => {
 		const fetchData = async () => {
 			try {
 				const getCoinDetails = await fetchCoinDetails(params.coin);
-				console.log("Params: ", params.coin);
-				// console.log("coinData: ", data);
 				setCoinData(getCoinDetails);
 			} catch (error) {
 				throw new Error(
